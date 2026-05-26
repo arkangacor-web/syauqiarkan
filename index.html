@@ -1,13 +1,413 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Google AI Studio App</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syauqi Arkan - Portfolio</title>
+
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS (CDN for Vanilla JS) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'dark-purple': '#0f051d',
+                        'deep-purple': '#1a0b2e',
+                        'neon-purple': '#b026ff',
+                        'glow-purple': '#7000ff',
+                    },
+                    fontFamily: {
+                        sans: '"Inter", ui-sans-serif, system-ui, sans-serif',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body
+    class="bg-dark-purple text-white font-sans antialiased overflow-x-hidden selection:bg-neon-purple/30 selection:text-white">
+
+    <!-- Canvas for Particle Background -->
+    <canvas id="particle-canvas" class="fixed inset-0 pointer-events-none z-0 opacity-80"
+        style="background: transparent;"></canvas>
+
+    <!-- Background Glows -->
+    <div class="fixed top-[-10%] left-[-10%] w-[40%] h-[40%] bg-glow opacity-15 blur-[120px] pointer-events-none z-0">
+    </div>
+    <div
+        class="fixed bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-glow opacity-15 blur-[120px] pointer-events-none z-0">
+    </div>
+
+    <div class="relative z-10 w-full overflow-hidden">
+
+        <!-- Hero Section -->
+        <section class="relative h-screen flex flex-col items-center justify-center text-center px-4">
+            <div id="hero-content" class="z-10 opacity-0 scale-90 transition-all duration-700 ease-out">
+                <h2 class="text-neon-purple font-semibold tracking-[0.3em] uppercase mb-4 text-sm md:text-base">
+                    Designer & Visionary
+                </h2>
+                <h1 class="text-6xl md:text-8xl font-black mb-6 tracking-tighter">
+                    Syauqi <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-white to-neon-purple">Arkan</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto font-light leading-relaxed">
+                    Creative Designer Crafting <span class="text-white font-medium">Visual Experiences</span> that
+                    resonate and inspire.
+                </p>
+
+                <div id="hero-buttons"
+                    class="mt-12 flex flex-col sm:flex-row gap-4 justify-center opacity-0 translate-y-5 transition-all duration-700 ease-out delay-300">
+                    <button
+                        class="px-8 py-4 bg-neon-purple text-white rounded-full font-bold hover:bg-glow-purple transition-all shadow-[0_0_20px_rgba(176,38,255,0.4)] flex items-center justify-center gap-2 group cursor-pointer">
+                        View Portfolio
+                        <i data-lucide="chevron-right"
+                            class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                    </button>
+                    <button
+                        class="px-8 py-4 glass text-white rounded-full font-bold hover:bg-white/10 transition-all cursor-pointer">
+                        Contact Me
+                    </button>
+                </div>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce-custom">
+                <div class="w-6 h-10 border-2 border-white/20 rounded-full flex justify-center p-1">
+                    <div class="w-1 h-2 bg-neon-purple rounded-full"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="py-24 px-4 max-w-6xl mx-auto w-full">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div data-animate="fade-up">
+                    <h2 class="text-4xl font-bold mb-8 flex items-center gap-4">
+                        <span class="w-12 h-1 bg-neon-purple inline-block"></span>
+                        About Me
+                    </h2>
+                    <p class="text-lg text-gray-300 leading-relaxed mb-6">
+                        I am a designer focused on creating engaging, functional, and modern visual solutions. With
+                        experience in various fields such as graphic design, UI/UX design, 3D design, and motion
+                        graphics, I always prioritize detail, aesthetics, and user experience in every work I create.
+                    </p>
+                    <p class="text-lg text-gray-300 leading-relaxed">
+                        I believe that good design is not only about looking beautiful but also about conveying messages
+                        effectively.
+                    </p>
+                </div>
+
+                <div class="relative" data-animate="scale-up">
+                    <div class="aspect-square rounded-3xl overflow-hidden glass p-2">
+                        <img src="./public/about-photo.jpg" alt="Syauqi Arkan Profile"
+                            class="w-full h-full object-cover rounded-2xl grayscale hover:grayscale-0 transition-all duration-700"
+                            referrerpolicy="no-referrer" />
+                    </div>
+                    <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-neon-purple/20 blur-3xl rounded-full"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section class="py-24 px-4 bg-deep-purple/50 w-full">
+            <div class="max-w-6xl mx-auto">
+                <div data-animate="fade-up" class="text-center mb-16">
+                    <h2 class="text-4xl font-bold mb-4">Core Skills</h2>
+                    <p class="text-gray-400">Specialized in multiple creative disciplines</p>
+                </div>
+
+                <div class="grid sm:grid-cols-2 gap-8">
+                    <!-- Skill 1 -->
+                    <div class="space-y-2" data-animate="fade-left">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="palette" class="w-5 h-5 text-neon-purple"></i>
+                                <span class="font-medium">Graphic Design</span>
+                            </div>
+                            <span class="text-sm text-gray-400">95%</span>
+                        </div>
+                        <div class="h-2 bg-white/5 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-glow-purple to-neon-purple origin-left skill-fill"
+                                data-width="95"></div>
+                        </div>
+                    </div>
+
+                    <!-- Skill 2 -->
+                    <div class="space-y-2" data-animate="fade-left">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="layout" class="w-5 h-5 text-neon-purple"></i>
+                                <span class="font-medium">UI/UX Design</span>
+                            </div>
+                            <span class="text-sm text-gray-400">90%</span>
+                        </div>
+                        <div class="h-2 bg-white/5 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-glow-purple to-neon-purple origin-left skill-fill"
+                                data-width="90"></div>
+                        </div>
+                    </div>
+
+                    <!-- Skill 3 -->
+                    <div class="space-y-2" data-animate="fade-left">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="box" class="w-5 h-5 text-neon-purple"></i>
+                                <span class="font-medium">3D Design</span>
+                            </div>
+                            <span class="text-sm text-gray-400">85%</span>
+                        </div>
+                        <div class="h-2 bg-white/5 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-glow-purple to-neon-purple origin-left skill-fill"
+                                data-width="85"></div>
+                        </div>
+                    </div>
+
+                    <!-- Skill 4 -->
+                    <div class="space-y-2" data-animate="fade-left">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="film" class="w-5 h-5 text-neon-purple"></i>
+                                <span class="font-medium">Motion Graphic</span>
+                            </div>
+                            <span class="text-sm text-gray-400">80%</span>
+                        </div>
+                        <div class="h-2 bg-white/5 rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-glow-purple to-neon-purple origin-left skill-fill"
+                                data-width="80"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Section -->
+        <section class="py-24 px-4 max-w-6xl mx-auto w-full">
+            <div data-animate="fade-up" class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
+                <div>
+                    <h2 class="text-4xl font-bold mb-4">Featured Projects</h2>
+                    <p class="text-gray-400">A selection of my recent creative works</p>
+                </div>
+                <div class="flex gap-4 text-sm font-medium">
+                    <span class="text-neon-purple cursor-pointer">All</span>
+                    <span class="text-gray-500 hover:text-white cursor-pointer transition-colors">Design</span>
+                    <span class="text-gray-500 hover:text-white cursor-pointer transition-colors">3D</span>
+                    <span class="text-gray-500 hover:text-white cursor-pointer transition-colors">UI/UX</span>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Project 1 -->
+                <div
+                    class="group relative overflow-hidden rounded-2xl glass aspect-video cursor-pointer hover:-translate-y-1.5 transition-transform duration-300">
+                    <img src="./public/f4.png" alt="Cyberpunk Poster Series"
+                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-60 group-hover:opacity-80"
+                        referrerpolicy="no-referrer" />
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-dark-purple via-transparent to-transparent opacity-60">
+                    </div>
+                    <div class="absolute bottom-0 left-0 p-6 w-full">
+                        <p class="text-neon-purple text-xs font-semibold tracking-widest uppercase mb-1">Poster Design
+                        </p>
+                        <h3 class="text-xl font-bold flex items-center justify-between">
+                            Cyberpunk Poster Series
+                            <i data-lucide="external-link"
+                                class="w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </h3>
+                    </div>
+                    <div
+                        class="absolute inset-0 border-2 border-transparent group-hover:border-neon-purple/30 rounded-2xl transition-colors pointer-events-none">
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div
+                    class="group relative overflow-hidden rounded-2xl glass aspect-video cursor-pointer hover:-translate-y-1.5 transition-transform duration-300">
+                    <img src="./public/f3.png" alt="Futuristic Dashboard"
+                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-60 group-hover:opacity-80"
+                        referrerpolicy="no-referrer" />
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-dark-purple via-transparent to-transparent opacity-60">
+                    </div>
+                    <div class="absolute bottom-0 left-0 p-6 w-full">
+                        <p class="text-neon-purple text-xs font-semibold tracking-widest uppercase mb-1">Website Design
+                        </p>
+                        <h3 class="text-xl font-bold flex items-center justify-between">
+                            Futuristic Dashboard
+                            <i data-lucide="external-link"
+                                class="w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </h3>
+                    </div>
+                    <div
+                        class="absolute inset-0 border-2 border-transparent group-hover:border-neon-purple/30 rounded-2xl transition-colors pointer-events-none">
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div
+                    class="group relative overflow-hidden rounded-2xl glass aspect-video cursor-pointer hover:-translate-y-1.5 transition-transform duration-300">
+                    <img src="./public/f1.png" alt="Eco-Friendly App"
+                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-60 group-hover:opacity-80"
+                        referrerpolicy="no-referrer" />
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-dark-purple via-transparent to-transparent opacity-60">
+                    </div>
+                    <div class="absolute bottom-0 left-0 p-6 w-full">
+                        <p class="text-neon-purple text-xs font-semibold tracking-widest uppercase mb-1">App Design</p>
+                        <h3 class="text-xl font-bold flex items-center justify-between">
+                            Eco-Friendly App
+                            <i data-lucide="external-link"
+                                class="w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </h3>
+                    </div>
+                    <div
+                        class="absolute inset-0 border-2 border-transparent group-hover:border-neon-purple/30 rounded-2xl transition-colors pointer-events-none">
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div
+                    class="group relative overflow-hidden rounded-2xl glass aspect-video cursor-pointer hover:-translate-y-1.5 transition-transform duration-300">
+                    <img src="./public/f2.png" alt="Abstract 3D Render"
+                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-60 group-hover:opacity-80"
+                        referrerpolicy="no-referrer" />
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-dark-purple via-transparent to-transparent opacity-60">
+                    </div>
+                    <div class="absolute bottom-0 left-0 p-6 w-full">
+                        <p class="text-neon-purple text-xs font-semibold tracking-widest uppercase mb-1">3D Artwork</p>
+                        <h3 class="text-xl font-bold flex items-center justify-between">
+                            Abstract 3D Render
+                            <i data-lucide="external-link"
+                                class="w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </h3>
+                    </div>
+                    <div
+                        class="absolute inset-0 border-2 border-transparent group-hover:border-neon-purple/30 rounded-2xl transition-colors pointer-events-none">
+                    </div>
+                </div>
+
+                <!-- Project 5 -->
+                <div
+                    class="group relative overflow-hidden rounded-2xl glass aspect-video cursor-pointer hover:-translate-y-1.5 transition-transform duration-300">
+                    <img src="./public/f5.png" alt="Minimalist Neon Series"
+                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-60 group-hover:opacity-80"
+                        referrerpolicy="no-referrer" />
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-dark-purple via-transparent to-transparent opacity-60">
+                    </div>
+                    <div class="absolute bottom-0 left-0 p-6 w-full">
+                        <p class="text-neon-purple text-xs font-semibold tracking-widest uppercase mb-1">Poster Design
+                        </p>
+                        <h3 class="text-xl font-bold flex items-center justify-between">
+                            Minimalist Neon Series
+                            <i data-lucide="external-link"
+                                class="w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </h3>
+                    </div>
+                    <div
+                        class="absolute inset-0 border-2 border-transparent group-hover:border-neon-purple/30 rounded-2xl transition-colors pointer-events-none">
+                    </div>
+                </div>
+
+                <!-- Project 6 -->
+                <div
+                    class="group relative overflow-hidden rounded-2xl glass aspect-video cursor-pointer hover:-translate-y-1.5 transition-transform duration-300">
+                    <img src="./public/f6.png" alt="Futuristic Structure"
+                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-60 group-hover:opacity-80"
+                        referrerpolicy="no-referrer" />
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-dark-purple via-transparent to-transparent opacity-60">
+                    </div>
+                    <div class="absolute bottom-0 left-0 p-6 w-full">
+                        <p class="text-neon-purple text-xs font-semibold tracking-widest uppercase mb-1">3D Artwork</p>
+                        <h3 class="text-xl font-bold flex items-center justify-between">
+                            Futuristic Structure
+                            <i data-lucide="external-link"
+                                class="w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </h3>
+                    </div>
+                    <div
+                        class="absolute inset-0 border-2 border-transparent group-hover:border-neon-purple/30 rounded-2xl transition-colors pointer-events-none">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="py-24 px-4 w-full">
+            <div class="max-w-4xl mx-auto glass rounded-[3rem] p-12 text-center relative overflow-hidden">
+                <div
+                    class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-neon-purple to-transparent">
+                </div>
+
+                <div data-animate="fade-up">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6">Let's Work Together</h2>
+                    <p class="text-gray-400 text-lg mb-10 max-w-xl mx-auto">
+                        Have a project in mind? Let's create something extraordinary together.
+                    </p>
+
+                    <a href="mailto:syauqiarkan07@gmail.com"
+                        class="inline-flex items-center gap-3 px-10 py-5 bg-white text-dark-purple rounded-full font-black text-xl hover:scale-105 transition-transform mb-12">
+                        <i data-lucide="mail" class="w-6 h-6"></i>
+                        Get In Touch
+                    </a>
+
+                    <div class="flex justify-center gap-6">
+                        <a href="#"
+                            class="p-4 glass rounded-full hover:text-neon-purple hover:-translate-y-1 transition-all duration-300">
+                            <i data-lucide="instagram" class="w-6 h-6"></i>
+                        </a>
+                        <a href="#"
+                            class="p-4 glass rounded-full hover:text-neon-purple hover:-translate-y-1 transition-all duration-300">
+                            <i data-lucide="twitter" class="w-6 h-6"></i>
+                        </a>
+                        <a href="#"
+                            class="p-4 glass rounded-full hover:text-neon-purple hover:-translate-y-1 transition-all duration-300">
+                            <i data-lucide="linkedin" class="w-6 h-6"></i>
+                        </a>
+                        <a href="#"
+                            class="p-4 glass rounded-full hover:text-neon-purple hover:-translate-y-1 transition-all duration-300">
+                            <i data-lucide="github" class="w-6 h-6"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-12 border-t border-white/5 text-center px-4 w-full">
+            <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+                <h3 class="text-xl font-bold tracking-tighter">
+                    SYAUQI<span class="text-neon-purple">ARKAN</span>
+                </h3>
+                <p id="copyright-year" class="text-gray-500 text-sm">
+                    &copy; 2026 Syauqi Arkan. All rights reserved.
+                </p>
+                <div class="flex gap-8 text-sm text-gray-500">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="./script.js"></script>
+</body>
+
+</html>

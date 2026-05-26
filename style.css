@@ -1,0 +1,62 @@
+/* Custom Utilities */
+.glass {
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.text-glow {
+    text-shadow: 0 0 10px rgba(176, 38, 255, 0.5);
+}
+
+.bg-glow {
+    background: radial-gradient(circle at center, #7000ff 0%, transparent 70%);
+}
+
+/* Custom Animations */
+@keyframes bounce-custom {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(10px);
+    }
+}
+.animate-bounce-custom {
+    animation: bounce-custom 2s infinite ease-in-out;
+}
+
+/* Intersection Observer Animation Classes */
+[data-animate="fade-up"] {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+[data-animate="fade-left"] {
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+[data-animate="scale-up"] {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+/* Active State for Animations */
+[data-animate].is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+/* Skills Bar Animation */
+.skill-fill {
+    transform: scaleX(0);
+    transition: transform 1s ease-out;
+    transition-delay: 0.2s;
+}
+.skill-fill.is-visible {
+    transform: scaleX(1); /* overridden by inline style if needed, but we'll use inline width in js instead for cleaner animation or just set scaleX */
+}
